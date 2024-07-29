@@ -4,11 +4,11 @@ const multer = require('multer');
 const bodyParser = require('body-parser');
 const app = express();
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    port: 3304,
-    database: 'notice-boarddb'
+    host: 'sql.freedb.tech',
+    user: 'freedb_pohc237',
+    password: '9$9wSM#kPyKg5RY',
+    port: 3306,
+    database: 'freedb_c237pohdb'
 });
 const storage = multer.diskStorage({
     destination: (req,file,cb) => {
