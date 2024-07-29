@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Notice-bored</title>
+    <style>
+        form{
+            padding: 10px;
+            border: 2px black solid;
+        }
+        #heading {
+            padding-top: 30px;
+        }
+        select{
+            height: 30px;
+        }
+        body{
+        background-color: aliceblue;
+        color: navy;
+        }
+    </style>
+</head>
+<body>
+    <%- include ('partials/navbar.ejs') %>
+    
+    <h1 id="heading">Edit Post</h1>
+    <h5>Fill up this form to edit</h5>
+    <form action="/browse/<%= updatepost.postid%>/update" method="post" enctype="multipart/form-data">
+        <label for="oldimg">Current Image:</label><br>
+        <input type="text" name="oldimg" value = <%= updatepost.content %> readonly><br>
+        <img src = "/images/<%= updatepost.content %>" width="20%"><br><br>
+
+        New Image:<br><input type="file" id="newimg" name="newimg" ><br><br>
+        <br>
+        <br>
+        <label for="newname">Name:</label>
+        <input type="text" id="newname" name="newname" value="<%= updatepost.name%>" required>
+        <br>
+        <br>
+        <% let d = new Date(updatepost.dt);
+        let yr = d.getFullYear();
+        let mn = ('0' + (d.getMonth() + 1)).slice(-2);
+        let day = ('0' + d.getDate()).slice(-2);%>
+        <label for="newdate">Date:</label>
+        <input type="date" id="newdate" name="newdate" value="<%= `${yr}-${mn}-${day}` %>" required>
+        <br>
+        <br>
+        <%
+        hr =('0'+ d.getHours()).slice(-2);
+        min =('0'+ d.getMinutes()).slice(-2);
+        %>
+        <label for="newtime">Time:</label>
+        <input type="time" id="newtime" name="newtime" placeholder="Enter Time (hr:min)" value="<%= `${hr}:${min}`%>" required>
+        <br>
+        <br>
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" placeholder="Enter Location" value="<%=updatepost.location%>" required>
+        <br>
+        <br>
+        <% let [upduravalue,upduraunit]=(updatepost.duration).split(' ');%>
+        <label for="duravalue">Duration:</label>
+        <input type="number" id="duravalue" name="duravalue" placeholder="Enter Duration" min="1" value="<%=parseInt(upduravalue)%>" required>
+        <select name="duraunit" >
+            <option value="min" <% if (upduraunit === 'min') { %> selected <% } %> >min</option>
+            <option value="hr" <% if (upduraunit === 'hr') { %> selected <% } %> >hr</option>
+            <option value="days" <% if (upduraunit === 'days') { %> selected <% } %> >days</option>
+        </select>
+        <br>
+        <br>
+        <label for="x">X:</label>
+        <input type="number" id="x" name="x" min="0" max="1750" value="<%=updatepost.x%>" required>
+        <label for="y">Y:</label>
+        <input type="number" id="y" name="y" min="0" max="1000" value="<%=updatepost.y%>" required>
+        <br>
+        <i>*x and y values are used for the top left corner of postcards</i>
+        <br>
+        <br>
+        <button type="submit" class="btn btn-primary">Edit</button>
+    </form>
+
+</body>
+</html>

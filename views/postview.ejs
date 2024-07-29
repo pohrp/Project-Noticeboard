@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Notice-bored</title>
+    <style>
+        img{
+            width: 500px;
+        }
+        .postdetails{
+            padding: 80px;
+            padding-top: 20px;
+        }
+        h2{
+            text-decoration: underline;
+        }
+        body{
+        background-color: aliceblue;
+        color: navy;
+        }
+    </style>
+</head>
+<body>
+    <%- include ('partials/navbar.ejs') %>
+    <div class="postdetails">
+                    <h2>Post Details</h2>
+                        <div>
+                            <strong>Post ID:</strong> <%= post.postid %>
+                        </div>
+                        <div>
+                            <img src="/images/<%= post.content %>" alt="Poster">
+                        </div>
+                        <div>
+                            <strong>Name:</strong> <%= post.name %>
+                        </div>
+                        <% let d = new Date(post.dt);
+                        evday = d.getDate();
+                        evmnth = d.getMonth()+1;
+                        evyr = d.getFullYear(); %>
+                        <div>
+                            <strong>Date:</strong> <%= `${evday}/${evmnth}/${evyr}` %>
+                        </div>
+                        <% hours =('0'+ d.getHours()).slice(-2);
+                        minutes =('0'+ d.getMinutes()).slice(-2); %>
+                        <div>
+                            <strong>Time:</strong> <%= `${hours}:${minutes}` %>
+                        </div>
+                        <div>
+                            <strong>Duration:</strong> <%= post.duration %>
+                        </div>
+                        <div>
+                            <strong>Location:</strong> <%= post.location %>
+                        </div>
+                        <div>
+                            <strong>X Position:</strong> <%= post.x %>
+                            <strong>Y Position:</strong> <%= post.y %>
+                        </div>
+    </div>
+</body>
+</html>
